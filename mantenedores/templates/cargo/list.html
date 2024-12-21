@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista de Cargos</title>
+</head>
+<body>
+	<h1>Lista de Cargos</h1>
+	<ul>
+		{% for cargo in cargos %}
+			<li>
+				<a href="{% url 'cargo_detail' cargo.pk %}">{{ cargo.nombre }}</a>
+				<a href="{% url 'cargo_update' cargo.pk %}">Editar</a>
+				<a href="{% url 'cargo_delete' cargo.pk %}">Eliminar</a>
+			</li>
+		{% endfor %}
+	</ul>
+	<a href="{% url 'cargo_create' %}">Crear nuevo Cargo</a>
+</body>
+</html>
