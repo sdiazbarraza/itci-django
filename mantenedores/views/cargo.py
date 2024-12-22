@@ -40,7 +40,5 @@ def cargo_update(request, pk):
 
 def cargo_delete(request, pk):
 	cargo = get_object_or_404(Cargo, pk=pk)
-	if request.method == "POST":
-		cargo.delete()
-		return redirect('cargo_list')
-	return render(request, 'cargo/confirm_delete.html', {'cargo': cargo})
+	cargo.delete()
+	return redirect('cargo_list')	
