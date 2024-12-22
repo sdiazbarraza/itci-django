@@ -1,13 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from ..models import Cargo
 from ..forms import CargoForm
-
+from django.core.paginator import Paginator
 def index(request):
 	return HttpResponse("Hello, this is the Cargo app.")
 
 def cargo_list(request):
 	cargos = Cargo.objects.all()
-	return render(request, 'cargo/list.html', {'cargos': cargos})
+	page = Paginator(cargos, 10)
+	page_list = request.GET.get('page')
+	page = page.get_page(page_list)
+
+	return render(request, 'cargo/list.html', {'page': page})
 
 def cargo_detail(request, pk):
 	cargo = get_object_or_404(Cargo, pk=pk)
