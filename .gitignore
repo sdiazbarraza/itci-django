@@ -1,0 +1,7 @@
+# Ignorar directorios __pycache__
+__pycache__/
+
+# Otras reglas de ignorar
+*.pyc
+*.pyo
+*.pyd
