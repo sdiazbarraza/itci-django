@@ -1,3 +1,5 @@
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from django.shortcuts import render, get_object_or_404, redirect
 from ..models import Cargo
 from ..forms import CargoForm
@@ -32,13 +34,14 @@ def cargo_update(request, pk):
 	if request.method == "POST":
 		form = CargoForm(request.POST, instance=cargo)
 		if form.is_valid():
-			cargo = form.save()
+			form.save()
 			return redirect('cargo_list')
 	else:
 		form = CargoForm(instance=cargo)
 	return render(request, 'cargo/form.html', {'form': form})
 
+@require_POST
 def cargo_delete(request, pk):
 	cargo = get_object_or_404(Cargo, pk=pk)
 	cargo.delete()
-	return redirect('cargo_list')	
+	return JsonResponse({'status': 'success'}, status=200)

@@ -3,7 +3,7 @@
 
 {% block content %}
 <h1>{% if form.instance.pk %}Editar Cargo{% else %}Crear Cargo{% endif %}</h1>
-<form method="post" action="{% url 'cargo_create' %}">
+<form method="post">
 	{% csrf_token %}
     {{ form|crispy }}
 	<button type="submit" class="btn btn-primary">Guardar</button>
