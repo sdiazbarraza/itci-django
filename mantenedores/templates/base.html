@@ -39,20 +39,17 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'cargo_list' %}">
-                    Cargos
+                  <a class="nav-link" href="#" data-toggle="collapse" data-target="#accordionMantenedores" aria-expanded="false" aria-controls="accordionMantenedores">
+                      Mantenedores
                   </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'producto_list' %}">
-                    Productos
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'centro_list' %}">
-                    Centros
-                  </a>
-                </li>
+                  <div id="accordionMantenedores" class="collapse">
+                      <div class="list-group">
+                          <a class="list-group-item list-group-item-action" href="{% url 'cargo_list' %}">Cargos</a>
+                          <a class="list-group-item list-group-item-action" href="{% url 'producto_list' %}">Productos</a>
+                          <a class="list-group-item list-group-item-action" href="{% url 'centro_list' %}">Centros</a>
+                      </div>
+                  </div>
+              </li>
               </ul>
             </div>
           </nav>
