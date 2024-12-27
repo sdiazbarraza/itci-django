@@ -4,9 +4,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from ..models import Cargo
 from ..forms import CargoForm
 from django.core.paginator import Paginator
-def index(request):
-	return HttpResponse("Hello, this is the Cargo app.")
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def cargo_list(request):
 	cargos = Cargo.objects.all()
 	page = Paginator(cargos, 10)
@@ -19,6 +19,7 @@ def cargo_detail(request, pk):
 	cargo = get_object_or_404(Cargo, pk=pk)
 	return render(request, 'cargo/detail.html', {'cargo': cargo})
 
+@login_required
 def cargo_create(request):
 	if request.method == "POST":
 		form = CargoForm(request.POST)
@@ -29,6 +30,7 @@ def cargo_create(request):
 		form = CargoForm()
 	return render(request, 'cargo/form.html', {'form': form})
 
+@login_required
 def cargo_update(request, pk):
 	cargo = get_object_or_404(Cargo, pk=pk)
 	if request.method == "POST":
@@ -40,6 +42,7 @@ def cargo_update(request, pk):
 		form = CargoForm(instance=cargo)
 	return render(request, 'cargo/form.html', {'form': form})
 
+@login_required
 @require_POST
 def cargo_delete(request, pk):
 	cargo = get_object_or_404(Cargo, pk=pk)

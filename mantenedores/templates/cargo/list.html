@@ -85,7 +85,7 @@ function setCargoId(cargoId) {
 
 function deleteCargo() {
     if (cargoIdToDelete !== null) {
-        fetch(`/mantenedores/cargo/${cargoIdToDelete}/delete/`, {
+        fetch(`/cargo/${cargoIdToDelete}/delete/`, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken'),
@@ -95,7 +95,7 @@ function deleteCargo() {
         })
         .then(response => {
             if (response.ok) {
-                window.location.href =  '/mantenedores/cargo';
+                window.location.href =  '/cargo';
             } else {
                 alert('Error al eliminar el cargo.');
             }
