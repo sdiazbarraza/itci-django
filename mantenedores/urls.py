@@ -25,4 +25,10 @@ urlpatterns = [
     path('centro/new/', views.centro.centro_create, name='centro_create'),
     path('centro/<int:pk>/edit/', views.centro.centro_update, name='centro_update'),
     path('centro/<int:pk>/delete/', views.centro.centro_delete, name='centro_delete'),
+
+    path('causa_raiz/', views.causa_raiz.causa_raiz_list, name='causa_raiz_list'),
+    path('causa_raiz/<int:pk>/', views.causa_raiz.causa_raiz_detail, name='causa_raiz_detail'),
+    path('causa_raiz/new/', views.causa_raiz.causa_raiz_create, name='causa_raiz_create'),
+    path('causa_raiz/<int:pk>/edit/', views.causa_raiz.causa_raiz_update, name='causa_raiz_update'),
+    path('causa_raiz/<int:pk>/delete/', views.causa_raiz.causa_raiz_delete, name='causa_raiz_delete'),
 ]
