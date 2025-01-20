@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Lista de Tipo de mermas</h1>
+<a href="{% url 'tipo_merma_create' %}" class="btn btn-primary">Crear nuevo Tipo de merma</a>
+<br>
+<br>
+<br>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Id Tipo de merma</th>
+			<th>Nombre</th>
+			<th>Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for tipo_merma in page.object_list %}
+			<tr>
+				<td>
+					{{ tipo_merma.id_tipo_merma }}
+				</td>				
+				<td>
+					{{ tipo_merma.nombre }}
+				</td>
+				<td>
+					<a href="{% url 'tipo_merma_update' tipo_merma.pk %}" class="btn btn-primary btn-sm">Editar</a>
+					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" onclick="setTipoMermaId({{ tipo_merma.id }})">
+						Eliminar
+					  </button>				
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 offset-md-3">
+			<p>Page: {{page.number}}/{{page.paginator.num_pages}}</p>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+					{% if page.has_previous %}
+					  <li class="page-item"><a class="page-link" href="{% url 'tipo_merma_list' %}?page={{page.previous_page_number}}">Previous</a></li>
+	 	 		  	{% endif %}
+					{% for num_page in page.paginator.page_range %}
+						{% if num_page == page.number %}
+							<li class="page-item active"><a class="page-link" href="{% url 'tipo_merma_list' %}?page={{num_page}}">{{num_page}}</a></li>
+						{% else %}
+							<li class="page-item"><a class="page-link" href="{% url 'tipo_merma_list' %}?page={{num_page}}">{{num_page}}</a></li>
+						{%endif%}
+					{% endfor %}
+				 	{% if page.has_next %}
+				  		<li class="page-item"><a class="page-link" href="{% url 'tipo_merma_list' %}?page={{page.next_page_number}}">Next</a></li>
+				  	{% endif %}
+				</ul>
+			  </nav>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="deleteModalLabel">Confirmar eliminación</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  ¿Estás seguro de que deseas eliminar este Tipo de merma?
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		  <button type="button" class="btn btn-danger" onclick="deleteTipoMerma()">Eliminar</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+<script>
+
+let tipo_mermaIdToDelete = null;
+
+function setTipoMermaId(tipo_mermaId) {
+    tipo_mermaIdToDelete = tipo_mermaId;
+}
+
+function deleteTipoMerma() {
+    if (tipo_mermaIdToDelete !== null) {
+        fetch(`/tipo_merma/${tipo_mermaIdToDelete}/delete/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href =  '/tipo_merma';
+            } else {
+                alert('Error al eliminar el tipo_merma.');
+            }
+        });
+    }
+}
+	
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+</script>
+{% endblock %}

@@ -37,4 +37,10 @@ urlpatterns = [
     path('puesto_trabajo/new/', views.puesto_trabajo.puesto_trabajo_create, name='puesto_trabajo_create'),
     path('puesto_trabajo/<int:pk>/edit/', views.puesto_trabajo.puesto_trabajo_update, name='puesto_trabajo_update'),
     path('puesto_trabajo/<int:pk>/delete/', views.puesto_trabajo.puesto_trabajo_delete, name='puesto_trabajo_delete'),
+
+    path('tipo_merma/', views.tipo_merma.tipo_merma_list, name='tipo_merma_list'),
+    path('tipo_merma/<int:pk>/', views.tipo_merma.tipo_merma_detail, name='tipo_merma_detail'),
+    path('tipo_merma/new/', views.tipo_merma.tipo_merma_create, name='tipo_merma_create'),
+    path('tipo_merma/<int:pk>/edit/', views.tipo_merma.tipo_merma_update, name='tipo_merma_update'),
+    path('tipo_merma/<int:pk>/delete/', views.tipo_merma.tipo_merma_delete, name='tipo_merma_delete'),
 ]
