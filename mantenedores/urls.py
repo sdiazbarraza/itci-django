@@ -31,4 +31,10 @@ urlpatterns = [
     path('causa_raiz/new/', views.causa_raiz.causa_raiz_create, name='causa_raiz_create'),
     path('causa_raiz/<int:pk>/edit/', views.causa_raiz.causa_raiz_update, name='causa_raiz_update'),
     path('causa_raiz/<int:pk>/delete/', views.causa_raiz.causa_raiz_delete, name='causa_raiz_delete'),
+
+    path('puesto_trabajo/', views.puesto_trabajo.puesto_trabajo_list, name='puesto_trabajo_list'),
+    path('puesto_trabajo/<int:pk>/', views.puesto_trabajo.puesto_trabajo_detail, name='puesto_trabajo_detail'),
+    path('puesto_trabajo/new/', views.puesto_trabajo.puesto_trabajo_create, name='puesto_trabajo_create'),
+    path('puesto_trabajo/<int:pk>/edit/', views.puesto_trabajo.puesto_trabajo_update, name='puesto_trabajo_update'),
+    path('puesto_trabajo/<int:pk>/delete/', views.puesto_trabajo.puesto_trabajo_delete, name='puesto_trabajo_delete'),
 ]
