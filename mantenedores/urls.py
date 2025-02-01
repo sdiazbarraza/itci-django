@@ -43,4 +43,10 @@ urlpatterns = [
     path('tipo_merma/new/', views.tipo_merma.tipo_merma_create, name='tipo_merma_create'),
     path('tipo_merma/<int:pk>/edit/', views.tipo_merma.tipo_merma_update, name='tipo_merma_update'),
     path('tipo_merma/<int:pk>/delete/', views.tipo_merma.tipo_merma_delete, name='tipo_merma_delete'),
+
+    path('unidad_medida/', views.unidad_medida.unidad_medida_list, name='unidad_medida_list'),
+    path('unidad_medida/<int:pk>/', views.unidad_medida.unidad_medida_detail, name='unidad_medida_detail'),
+    path('unidad_medida/new/', views.unidad_medida.unidad_medida_create, name='unidad_medida_create'),
+    path('unidad_medida/<int:pk>/edit/', views.unidad_medida.unidad_medida_update, name='unidad_medida_update'),
+    path('unidad_medida/<int:pk>/delete/', views.unidad_medida.unidad_medida_delete, name='unidad_medida_delete'),    
 ]
