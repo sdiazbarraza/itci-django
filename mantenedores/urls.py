@@ -48,5 +48,11 @@ urlpatterns = [
     path('unidad_medida/<int:pk>/', views.unidad_medida.unidad_medida_detail, name='unidad_medida_detail'),
     path('unidad_medida/new/', views.unidad_medida.unidad_medida_create, name='unidad_medida_create'),
     path('unidad_medida/<int:pk>/edit/', views.unidad_medida.unidad_medida_update, name='unidad_medida_update'),
-    path('unidad_medida/<int:pk>/delete/', views.unidad_medida.unidad_medida_delete, name='unidad_medida_delete'),    
+    path('unidad_medida/<int:pk>/delete/', views.unidad_medida.unidad_medida_delete, name='unidad_medida_delete'),
+
+    path('turno/', views.turno.turno_list, name='turno_list'),
+    path('turno/<int:pk>/', views.turno.turno_detail, name='turno_detail'),
+    path('turno/new/', views.turno.turno_create, name='turno_create'),
+    path('turno/<int:pk>/edit/', views.turno.turno_update, name='turno_update'),
+    path('turno/<int:pk>/delete/', views.turno.turno_delete, name='turno_delete'),        
 ]

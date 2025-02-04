@@ -1,30 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Lista de Causa Raices</h1>
-<a href="{% url 'causa_raiz_create' %}" class="btn btn-primary">Crear nueva Causa Raiz</a>
+<h1>Lista de Turnos</h1>
+<a href="{% url 'turno_create' %}" class="btn btn-primary">Crear turno</a>
 <br>
 <br>
 <br>
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Id causa raiz</th>
 			<th>Nombre</th>
+			<th>Hora inicio</th>
+			<th>Hora Fin</th>
 			<th>Acciones</th>
 		</tr>
 	</thead>
 	<tbody>
-		{% for causa_raiz in page.object_list %}
+		{% for turno in page.object_list %}
 			<tr>
 				<td>
-					{{ causa_raiz.id_causa_raiz }}
+					{{ turno.nombre }}
 				</td>				
 				<td>
-					{{ causa_raiz.nombre }}
+					{{ turno.hora_inicio }}
 				</td>
 				<td>
-					<a href="{% url 'causa_raiz_update' causa_raiz.pk %}" class="btn btn-primary btn-sm">Editar</a>
-					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" onclick="setCausaRaizId({{ causa_raiz.id }})">
+					{{ turno.hora_fin }}
+				</td>
+				<td>
+					<a href="{% url 'turno_update' turno.pk %}" class="btn btn-primary btn-sm">Editar</a>
+					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" onclick="setTurnoId({{ turno.id }})">
 						Eliminar
 					  </button>				
 				</td>
@@ -39,17 +43,17 @@
 			<nav aria-label="Page navigation example">
 				<ul class="pagination">
 					{% if page.has_previous %}
-					  <li class="page-item"><a class="page-link" href="{% url 'causa_raiz_list' %}?page={{page.previous_page_number}}">Previous</a></li>
+					  <li class="page-item"><a class="page-link" href="{% url 'turno_list' %}?page={{page.previous_page_number}}">Previous</a></li>
 	 	 		  	{% endif %}
 					{% for num_page in page.paginator.page_range %}
 						{% if num_page == page.number %}
-							<li class="page-item active"><a class="page-link" href="{% url 'causa_raiz_list' %}?page={{num_page}}">{{num_page}}</a></li>
+							<li class="page-item active"><a class="page-link" href="{% url 'turno_list' %}?page={{num_page}}">{{num_page}}</a></li>
 						{% else %}
-							<li class="page-item"><a class="page-link" href="{% url 'causa_raiz_list' %}?page={{num_page}}">{{num_page}}</a></li>
+							<li class="page-item"><a class="page-link" href="{% url 'turno_list' %}?page={{num_page}}">{{num_page}}</a></li>
 						{%endif%}
 					{% endfor %}
 				 	{% if page.has_next %}
-				  		<li class="page-item"><a class="page-link" href="{% url 'causa_raiz_list' %}?page={{page.next_page_number}}">Next</a></li>
+				  		<li class="page-item"><a class="page-link" href="{% url 'turno_list' %}?page={{page.next_page_number}}">Next</a></li>
 				  	{% endif %}
 				</ul>
 			  </nav>
@@ -66,26 +70,26 @@
 		  </button>
 		</div>
 		<div class="modal-body">
-		  ¿Estás seguro de que deseas eliminar este causa_raiz?
+		  ¿Estás seguro de que deseas eliminar este Unidad de medida?
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-		  <button type="button" class="btn btn-danger" onclick="deleteCausaRaiz()">Eliminar</button>
+		  <button type="button" class="btn btn-danger" onclick="deleteTurno()">Eliminar</button>
 		</div>
 	  </div>
 	</div>
   </div>
 <script>
 
-let causa_raizIdToDelete = null;
+let turnoIdToDelete = null;
 
-function setCausaRaizId(causa_raizId) {
-    causa_raizIdToDelete = causa_raizId;
+function setTurnoId(turnoId) {
+    turnoIdToDelete = turnoId;
 }
 
-function deleteCausaRaiz() {
-    if (causa_raizIdToDelete !== null) {
-        fetch(`/causa_raiz/${causa_raizIdToDelete}/delete/`, {
+function deleteTurno() {
+    if (turnoIdToDelete !== null) {
+        fetch(`/turno/${turnoIdToDelete}/delete/`, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken'),
@@ -95,9 +99,9 @@ function deleteCausaRaiz() {
         })
         .then(response => {
             if (response.ok) {
-                window.location.href =  '/causa_raiz';
+                window.location.href =  '/turno';
             } else {
-                alert('Error al eliminar el causa_raiz.');
+                alert('Error al eliminar el turno.');
             }
         });
     }
