@@ -60,5 +60,11 @@ urlpatterns = [
     path('colaborador/<int:pk>/', views.colaborador.colaborador_detail, name='colaborador_detail'),
     path('colaborador/new/', views.colaborador.colaborador_create, name='colaborador_create'),
     path('colaborador/<int:pk>/edit/', views.colaborador.colaborador_update, name='colaborador_update'),
-    path('colaborador/<int:pk>/delete/', views.colaborador.colaborador_delete, name='colaborador_delete'),        
+    path('colaborador/<int:pk>/delete/', views.colaborador.colaborador_delete, name='colaborador_delete'), 
+
+    path('merma/', views.merma.merma_list, name='merma_list'),
+    path('merma/<int:pk>/', views.merma.merma_detail, name='merma_detail'),
+    path('merma/new/', views.merma.merma_create, name='merma_create'),
+    path('merma/<int:pk>/edit/', views.merma.merma_update, name='merma_update'),
+    path('merma/<int:pk>/delete/', views.merma.merma_delete, name='merma_delete'),        
 ]
