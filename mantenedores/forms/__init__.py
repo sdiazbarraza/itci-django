@@ -8,3 +8,4 @@ from .unidad_medida import UnidadMedidaForm
 from .turno import TurnoForm
 from .colaborador import ColaboradorForm
 from .merma import MermaForm
+from .material import MaterialForm

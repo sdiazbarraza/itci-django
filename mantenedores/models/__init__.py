@@ -8,3 +8,4 @@ from .unidad_medida import UnidadMedida
 from .turno import Turno
 from .colaborador import Colaborador
 from .merma import Merma
+from .material import Material

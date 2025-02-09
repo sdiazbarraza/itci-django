@@ -66,5 +66,11 @@ urlpatterns = [
     path('merma/<int:pk>/', views.merma.merma_detail, name='merma_detail'),
     path('merma/new/', views.merma.merma_create, name='merma_create'),
     path('merma/<int:pk>/edit/', views.merma.merma_update, name='merma_update'),
-    path('merma/<int:pk>/delete/', views.merma.merma_delete, name='merma_delete'),        
+    path('merma/<int:pk>/delete/', views.merma.merma_delete, name='merma_delete'),   
+
+    path('material/', views.material.material_list, name='material_list'),
+    path('material/<int:pk>/', views.material.material_detail, name='material_detail'),
+    path('material/new/', views.material.material_create, name='material_create'),
+    path('material/<int:pk>/edit/', views.material.material_update, name='material_update'),
+    path('material/<int:pk>/delete/', views.material.material_delete, name='material_delete'),          
 ]

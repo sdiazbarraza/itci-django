@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Lista de Materiales</h1>
+<a href="{% url 'material_create' %}" class="btn btn-primary">Crear Material</a>
+<br>
+<br>
+<br>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Formato</th>
+			<th>Peso caja</th>
+			<th>Golpes</th>
+			<th>Bajadas</th>
+			<th>Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for material in page.object_list %}
+			<tr>
+				<td>
+					{{ material.nombre }}
+				</td>				
+				<td>
+					{{ material.formato }}
+				</td>
+				<td>
+					{{ material.peso_caja }}
+				</td>
+				<td>
+					{{ material.golpes }}
+				</td>
+				<td>
+					{{ material.bajadas }}
+				</td>
+				<td>
+					<a href="{% url 'material_update' material.pk %}" class="btn btn-primary btn-sm">Editar</a>
+					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" onclick="setMaterialId({{ material.id }})">
+						Eliminar
+					  </button>				
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 offset-md-3">
+			<p>Page: {{page.number}}/{{page.paginator.num_pages}}</p>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+					{% if page.has_previous %}
+					  <li class="page-item"><a class="page-link" href="{% url 'material_list' %}?page={{page.previous_page_number}}">Previous</a></li>
+	 	 		  	{% endif %}
+					{% for num_page in page.paginator.page_range %}
+						{% if num_page == page.number %}
+							<li class="page-item active"><a class="page-link" href="{% url 'material_list' %}?page={{num_page}}">{{num_page}}</a></li>
+						{% else %}
+							<li class="page-item"><a class="page-link" href="{% url 'material_list' %}?page={{num_page}}">{{num_page}}</a></li>
+						{%endif%}
+					{% endfor %}
+				 	{% if page.has_next %}
+				  		<li class="page-item"><a class="page-link" href="{% url 'material_list' %}?page={{page.next_page_number}}">Next</a></li>
+				  	{% endif %}
+				</ul>
+			  </nav>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="deleteModalLabel">Confirmar eliminación</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  ¿Estás seguro de que deseas eliminar este Material?
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		  <button type="button" class="btn btn-danger" onclick="deleteMaterial()">Eliminar</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+<script>
+
+let materialIdToDelete = null;
+
+function setMaterialId(materialId) {
+    materialIdToDelete = materialId;
+}
+
+function deleteMaterial() {
+    if (materialIdToDelete !== null) {
+        fetch(`/material/${materialIdToDelete}/delete/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href =  '/material';
+            } else {
+                alert('Error al eliminar el material.');
+            }
+        });
+    }
+}
+	
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				if (cookie.substring(0, name.length + 1) === (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+</script>
+{% endblock %}
