@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Lista de Turnos</h1>
-<a href="{% url 'turno_create' %}" class="btn btn-primary">Crear turno</a>
+<h1>Lista de Colaboradores</h1>
+<a href="{% url 'colaborador_create' %}" class="btn btn-primary">Crear Colaborador</a>
 <br>
 <br>
 <br>
@@ -9,26 +9,30 @@
 	<thead>
 		<tr>
 			<th>Nombre</th>
-			<th>Hora inicio</th>
-			<th>Hora Fin</th>
+			<th>Apellido</th>
+			<th>Rut</th>
+			<th>Cargo</th>
 			<th>Acciones</th>
 		</tr>
 	</thead>
 	<tbody>
-		{% for turno in page.object_list %}
+		{% for colaborador in page.object_list %}
 			<tr>
 				<td>
-					{{ turno.nombre }}
+					{{ colaborador.nombre }}
 				</td>				
 				<td>
-					{{ turno.hora_inicio }}
+					{{ colaborador.apellido }}
 				</td>
 				<td>
-					{{ turno.hora_fin }}
+					{{ colaborador.rut }}
 				</td>
 				<td>
-					<a href="{% url 'turno_update' turno.pk %}" class="btn btn-primary btn-sm">Editar</a>
-					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" onclick="setTurnoId({{ turno.id }})">
+					{{ colaborador.cargo }}
+				</td>
+				<td>
+					<a href="{% url 'colaborador_update' colaborador.pk %}" class="btn btn-primary btn-sm">Editar</a>
+					<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" onclick="setColaboradorId({{ colaborador.id }})">
 						Eliminar
 					  </button>				
 				</td>
@@ -43,17 +47,17 @@
 			<nav aria-label="Page navigation example">
 				<ul class="pagination">
 					{% if page.has_previous %}
-					  <li class="page-item"><a class="page-link" href="{% url 'turno_list' %}?page={{page.previous_page_number}}">Previous</a></li>
+					  <li class="page-item"><a class="page-link" href="{% url 'colaborador_list' %}?page={{page.previous_page_number}}">Previous</a></li>
 	 	 		  	{% endif %}
 					{% for num_page in page.paginator.page_range %}
 						{% if num_page == page.number %}
-							<li class="page-item active"><a class="page-link" href="{% url 'turno_list' %}?page={{num_page}}">{{num_page}}</a></li>
+							<li class="page-item active"><a class="page-link" href="{% url 'colaborador_list' %}?page={{num_page}}">{{num_page}}</a></li>
 						{% else %}
-							<li class="page-item"><a class="page-link" href="{% url 'turno_list' %}?page={{num_page}}">{{num_page}}</a></li>
+							<li class="page-item"><a class="page-link" href="{% url 'colaborador_list' %}?page={{num_page}}">{{num_page}}</a></li>
 						{%endif%}
 					{% endfor %}
 				 	{% if page.has_next %}
-				  		<li class="page-item"><a class="page-link" href="{% url 'turno_list' %}?page={{page.next_page_number}}">Next</a></li>
+				  		<li class="page-item"><a class="page-link" href="{% url 'colaborador_list' %}?page={{page.next_page_number}}">Next</a></li>
 				  	{% endif %}
 				</ul>
 			  </nav>
@@ -70,26 +74,26 @@
 		  </button>
 		</div>
 		<div class="modal-body">
-		  ¿Estás seguro de que deseas eliminar este Turno?
+		  ¿Estás seguro de que deseas eliminar este Colaborador?
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-		  <button type="button" class="btn btn-danger" onclick="deleteTurno()">Eliminar</button>
+		  <button type="button" class="btn btn-danger" onclick="deleteColaborador()">Eliminar</button>
 		</div>
 	  </div>
 	</div>
   </div>
 <script>
 
-let turnoIdToDelete = null;
+let colaboradorIdToDelete = null;
 
-function setTurnoId(turnoId) {
-    turnoIdToDelete = turnoId;
+function setColaboradorId(colaboradorId) {
+    colaboradorIdToDelete = colaboradorId;
 }
 
-function deleteTurno() {
-    if (turnoIdToDelete !== null) {
-        fetch(`/turno/${turnoIdToDelete}/delete/`, {
+function deleteColaborador() {
+    if (colaboradorIdToDelete !== null) {
+        fetch(`/colaborador/${colaboradorIdToDelete}/delete/`, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken'),
@@ -99,9 +103,9 @@ function deleteTurno() {
         })
         .then(response => {
             if (response.ok) {
-                window.location.href =  '/turno';
+                window.location.href =  '/colaborador';
             } else {
-                alert('Error al eliminar el turno.');
+                alert('Error al eliminar el colaborador.');
             }
         });
     }

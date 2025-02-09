@@ -6,3 +6,4 @@ from .puesto_trabajo import PuestoTrabajoForm
 from .tipo_merma import TipoMermaForm
 from .unidad_medida import UnidadMedidaForm
 from .turno import TurnoForm
+from .colaborador import ColaboradorForm

@@ -54,5 +54,11 @@ urlpatterns = [
     path('turno/<int:pk>/', views.turno.turno_detail, name='turno_detail'),
     path('turno/new/', views.turno.turno_create, name='turno_create'),
     path('turno/<int:pk>/edit/', views.turno.turno_update, name='turno_update'),
-    path('turno/<int:pk>/delete/', views.turno.turno_delete, name='turno_delete'),        
+    path('turno/<int:pk>/delete/', views.turno.turno_delete, name='turno_delete'), 
+
+    path('colaborador/', views.colaborador.colaborador_list, name='colaborador_list'),
+    path('colaborador/<int:pk>/', views.colaborador.colaborador_detail, name='colaborador_detail'),
+    path('colaborador/new/', views.colaborador.colaborador_create, name='colaborador_create'),
+    path('colaborador/<int:pk>/edit/', views.colaborador.colaborador_update, name='colaborador_update'),
+    path('colaborador/<int:pk>/delete/', views.colaborador.colaborador_delete, name='colaborador_delete'),        
 ]
